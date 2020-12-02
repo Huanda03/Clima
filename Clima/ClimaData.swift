@@ -12,7 +12,7 @@ struct ClimaData: Decodable{
     let name : String
     let timezone : Int
     let main : Main
-    let corrd : Coord
+    let coord : Coord
 }
 
 struct Main: Decodable {
