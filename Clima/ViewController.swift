@@ -9,10 +9,24 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, ClimaMAnagerDelegate{
+    func huboError(cualError: Error) {
+        print(cualError.localizedDescription)
+        DispatchQueue.main.async {
+            self.ciudadLabel.text = cualError.localizedDescription
+        }
+        
+    }
+    
     func actualizarClima(clima: ClimaModelo) {
         print("Desde el ViewController \(clima.condicionID)")
         print(clima.descripcionClima)
         print(clima.temperaturaCelcius)
+        
+        DispatchQueue.main.async {
+            self.temperaturaLabel.text = String(clima.temperaturaCelcius)
+            self.ciudadLabel.text = clima.descripcionClima
+        }
+        
     }
     
     
