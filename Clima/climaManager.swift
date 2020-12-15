@@ -37,7 +37,9 @@ struct climaManager {
                     if let clima = self.parseJSON(climaData: datosSeguros){
                         self.delegado?.actualizarClima(clima: clima)
                     }
-                }            }
+                }
+                
+            }
             tarea.resume()
         }
         

@@ -25,6 +25,8 @@ class ViewController: UIViewController, UITextFieldDelegate, ClimaMAnagerDelegat
         DispatchQueue.main.async {
             self.temperaturaLabel.text = String(clima.temperaturaCelcius)
             self.ciudadLabel.text = clima.descripcionClima
+            self.fondoImage.image = UIImage(named: clima.obtenerCondicionClima)
+            self.temperaturaImage.image = UIImage(named: clima.obtenerCondicionClimaIcon)
         }
         
     }

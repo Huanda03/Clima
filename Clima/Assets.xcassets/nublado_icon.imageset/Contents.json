@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "nublado_icon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "lluvia.jpg",
       "scale" : "2x"
     },
     {
