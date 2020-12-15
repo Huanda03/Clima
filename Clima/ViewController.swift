@@ -8,9 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, ClimaMAnagerDelegate{
+    func actualizarClima(clima: ClimaModelo) {
+        print("Desde el ViewController \(clima.condicionID)")
+        print(clima.descripcionClima)
+        print(clima.temperaturaCelcius)
+    }
     
-    let ClimaManager = climaManager()
+    
+    var ClimaManager = climaManager()
     
     @IBOutlet weak var buscarTextField: UITextField!
     @IBOutlet weak var temperaturaLabel: UILabel!
@@ -20,6 +26,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ClimaManager.delegado = self
         buscarTextField.delegate = self
     }
 

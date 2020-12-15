@@ -14,6 +14,7 @@
 		0A1FE27B2577D94600F634F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A1FE2792577D94600F634F6 /* LaunchScreen.storyboard */; };
 		0A7305D0257825FE00C30A73 /* ClimaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7305CF257825FE00C30A73 /* ClimaData.swift */; };
 		0A90F144257801BC00154FE8 /* climaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A90F143257801BC00154FE8 /* climaManager.swift */; };
+		0AA95AD32588EC1C00DA0A2F /* ClimaModelo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA95AD22588EC1C00DA0A2F /* ClimaModelo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0A1FE27C2577D94600F634F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A7305CF257825FE00C30A73 /* ClimaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimaData.swift; sourceTree = "<group>"; };
 		0A90F143257801BC00154FE8 /* climaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climaManager.swift; sourceTree = "<group>"; };
+		0AA95AD22588EC1C00DA0A2F /* ClimaModelo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimaModelo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				0A1FE27C2577D94600F634F6 /* Info.plist */,
 				0A90F143257801BC00154FE8 /* climaManager.swift */,
 				0A7305CF257825FE00C30A73 /* ClimaData.swift */,
+				0AA95AD22588EC1C00DA0A2F /* ClimaModelo.swift */,
 			);
 			path = Clima;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A1FE2732577D94300F634F6 /* ViewController.swift in Sources */,
+				0AA95AD32588EC1C00DA0A2F /* ClimaModelo.swift in Sources */,
 				0A90F144257801BC00154FE8 /* climaManager.swift in Sources */,
 				0A7305D0257825FE00C30A73 /* ClimaData.swift in Sources */,
 				0A1FE2712577D94300F634F6 /* AppDelegate.swift in Sources */,

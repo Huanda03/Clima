@@ -8,8 +8,15 @@
 
 import Foundation
 
+protocol ClimaMAnagerDelegate {
+    func actualizarClima (clima : ClimaModelo)
+}
+
 struct climaManager {
-    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=1726f13a5f1807aaeb7d74d47cc0790d&units=metric&q="
+    
+    var delegado: ClimaMAnagerDelegate?
+    
+    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=1726f13a5f1807aaeb7d74d47cc0790d&lang=es&units=metric&q="
     
     func fetchClima (nombreCiudad: String){
         let urlString = "\(climaURL)\(nombreCiudad)"
@@ -26,22 +33,30 @@ struct climaManager {
                     return
                 }
                 if let datosSeguros = data {
-                    self.parseJSON(climaData: datosSeguros)
+                    if let clima = self.parseJSON(climaData: datosSeguros){
+                        self.delegado?.actualizarClima(clima: clima)
+                    }
                 }            }
             tarea.resume()
         }
         
     }
 
-    func parseJSON (climaData : Data){
+    func parseJSON (climaData : Data) -> ClimaModelo? {
         let decoder = JSONDecoder ()
         do {
             let datadecodificada = try decoder.decode(ClimaData.self, from: climaData)
-            print(datadecodificada.name)
-            print(datadecodificada.timezone)
-            print(datadecodificada.main.temp)
+            let id = datadecodificada.weather[0].id
+            let nombre = datadecodificada.name
+            let descripcion = datadecodificada.weather[0].description
+            let temperatura = datadecodificada.main.temp
+            
+            let objCLima = ClimaModelo(condicionID: id, nombreCiudad: nombre, temperaturaCelcius: temperatura, descripcionClima: descripcion)
+            return objCLima
+            
         }catch{
             print(error)
+            return nil
         }
         
     }
