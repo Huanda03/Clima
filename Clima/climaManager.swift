@@ -17,11 +17,16 @@ struct climaManager {
     
     var delegado: ClimaMAnagerDelegate?
     
-    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=1726f13a5f1807aaeb7d74d47cc0790d&lang=es&units=metric&q="
+    let climaURL = "https://api.openweathermap.org/data/2.5/weather?appid=1726f13a5f1807aaeb7d74d47cc0790d&lang=es&units=metric"
     
     func fetchClima (nombreCiudad: String){
-        let urlString = "\(climaURL)\(nombreCiudad)"
+        let urlString = "\(climaURL)&q=\(nombreCiudad)"
         print(urlString)
+        realizarSolicitud(urlString: urlString)
+    }
+    
+    func fetchClima (lat: Double, lon: Double){
+        let urlString = "\(climaURL)&lat=\(lat)&lon=\(lon)"
         realizarSolicitud(urlString: urlString)
     }
     

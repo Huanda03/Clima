@@ -7,12 +7,48 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITextFieldDelegate, ClimaMAnagerDelegate{
+class ViewController: UIViewController{
+
+    var locationManager = CLLocationManager()
+    var ClimaManager = climaManager()
+    
+    @IBOutlet weak var buscarTextField: UITextField!
+    @IBOutlet weak var temperaturaLabel: UILabel!
+    @IBOutlet weak var ciudadLabel: UILabel!
+    @IBOutlet weak var temperaturaImage: UIImageView!
+    @IBOutlet weak var fondoImage: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        ClimaManager.delegado = self
+        
+        buscarTextField.delegate = self
+    }
+
+
+    
+    @IBAction func buscarButton(_ sender: UIButton) {
+        ciudadLabel.text = buscarTextField.text
+        ClimaManager.fetchClima(nombreCiudad: buscarTextField.text!)
+    }
+    
+    @IBAction func ubicacionButton(_ sender: UIButton) {
+        locationManager.requestLocation()
+        
+    }
+    
+}
+
+extension ViewController: ClimaMAnagerDelegate{
     func huboError(cualError: Error) {
         print(cualError.localizedDescription)
         DispatchQueue.main.async {
-            self.ciudadLabel.text = cualError.localizedDescription
+            self.ciudadLabel.text = "Verifique que el nobre sea correcto"
         }
         
     }
@@ -24,35 +60,40 @@ class ViewController: UIViewController, UITextFieldDelegate, ClimaMAnagerDelegat
         
         DispatchQueue.main.async {
             self.temperaturaLabel.text = String(clima.temperaturaCelcius)
-            self.ciudadLabel.text = clima.descripcionClima
+            self.ciudadLabel.text = "En \(clima.nombreCiudad) hay \(clima.descripcionClima)"
             self.fondoImage.image = UIImage(named: clima.obtenerCondicionClima)
             self.temperaturaImage.image = UIImage(named: clima.obtenerCondicionClimaIcon)
         }
         
     }
     
-    
-    var ClimaManager = climaManager()
-    
-    @IBOutlet weak var buscarTextField: UITextField!
-    @IBOutlet weak var temperaturaLabel: UILabel!
-    @IBOutlet weak var ciudadLabel: UILabel!
-    @IBOutlet weak var temperaturaImage: UIImageView!
-    @IBOutlet weak var fondoImage: UIImageView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ClimaManager.delegado = self
-        buscarTextField.delegate = self
-    }
+}
 
+extension ViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Ubicacion obtenida")
+        if let ubicacion = locations.last{
+            locationManager.stopUpdatingLocation()
+            let lat = ubicacion.coordinate.latitude
+            let lon = ubicacion.coordinate.longitude
+            print("Latitud: \(lat) Longitud: \(lon)")
+            ClimaManager.fetchClima(lat: lat, lon: lon)
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+}
+
+extension ViewController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         buscarTextField.text = ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print(buscarTextField.text!)
-        ciudadLabel.text = buscarTextField.text
+        //ciudadLabel.text = buscarTextField.text
         ClimaManager.fetchClima(nombreCiudad: buscarTextField.text!)
         return true
     }
@@ -67,10 +108,4 @@ class ViewController: UIViewController, UITextFieldDelegate, ClimaMAnagerDelegat
         }
     }
     
-    @IBAction func buscarButton(_ sender: UIButton) {
-        ciudadLabel.text = buscarTextField.text
-        ClimaManager.fetchClima(nombreCiudad: buscarTextField.text!)
-    }
-    
 }
-
