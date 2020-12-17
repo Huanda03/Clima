@@ -13,6 +13,8 @@ struct ClimaModelo {
     let nombreCiudad : String
     let temperaturaCelcius : Double
     let descripcionClima : String
+    let maxima: Double
+    let minima: Double
     
     var obtenerCondicionClima : String {
         switch condicionID {

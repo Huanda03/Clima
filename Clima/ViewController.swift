@@ -14,6 +14,8 @@ class ViewController: UIViewController{
     var locationManager = CLLocationManager()
     var ClimaManager = climaManager()
     
+    @IBOutlet weak var minimaLabel: UILabel!
+    @IBOutlet weak var maximaLabel: UILabel!
     @IBOutlet weak var buscarTextField: UITextField!
     @IBOutlet weak var temperaturaLabel: UILabel!
     @IBOutlet weak var ciudadLabel: UILabel!
@@ -63,6 +65,8 @@ extension ViewController: ClimaMAnagerDelegate{
             self.ciudadLabel.text = "En \(clima.nombreCiudad) hay \(clima.descripcionClima)"
             self.fondoImage.image = UIImage(named: clima.obtenerCondicionClima)
             self.temperaturaImage.image = UIImage(named: clima.obtenerCondicionClimaIcon)
+            self.minimaLabel.text = String(clima.minima)
+            self.maximaLabel.text = String(clima.maxima)
         }
         
     }
